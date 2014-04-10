@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="ArrayBasedQueueTest" project="csc207-hw6" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="ArrayBasedQueueTest" time="0.0">
+    <testcase name="test" classname="ArrayBasedQueueTest" time="0.0"/>
+    <testcase name="test2" classname="ArrayBasedQueueTest" time="0.0"/>
+    <testcase name="test3" classname="ArrayBasedQueueTest" time="0.0"/>
+    <testcase name="test4" classname="ArrayBasedQueueTest" time="0.0"/>
+    <testcase name="test5" classname="ArrayBasedQueueTest" time="0.0"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,162 @@
+package Problem1;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class ArrayBasedQueueTest
+{
+
+  public String
+    printFormat (String[] arrayIn)
+  {
+    String output = "[ ";
+    for (int i = 0; i < arrayIn.length; i++)
+      {
+        output += arrayIn[i] + ", ";
+      } // for
+
+    return output + " ]";
+  } // printFormat (String [])
+
+  /**
+   * Organize the format of output for String
+   * 
+   * @param Enqueue
+   * @return output, e.g. [val0, val1, val2]
+   * @throws Exception
+   */
+  public String
+    stringQueueOutput (ArrayBasedQueue<String> Enqueue)
+      throws Exception
+  {
+    // No iterator implemented, okay.
+    // Concatenate all strings within QueueIn
+    int queueSize = Enqueue.size;
+    String output = "[";
+    for (int i = 0; i < queueSize; i++)
+      {
+        output += Enqueue.get ();
+        if (i != queueSize - 1)
+          {
+            output += ", ";
+          } // if
+      } // for
+    return output += "]";
+  } // stringQueueOutput(ArrayBasedQueue)
+
+  /*
+   * helper to compare test given and expect
+   */
+  public void
+    helperComparison (String given, String correct)
+  {
+    if (given.compareTo (correct) == 0)
+      {
+        assertEquals (given, correct);
+      } // if
+    else
+      {
+        fail ("Expected: " + correct + " but received: " + given);
+      } // else
+  } // responseComparison (String, String)
+
+  @Test
+  public void
+    test ()
+      throws Exception
+  {
+    ArrayBasedQueue<String> abq = new ArrayBasedQueue<String> (5);
+    abq.put ("alpha");
+    abq.put ("gamma");
+    abq.put ("beta");
+
+    String response = stringQueueOutput (abq);
+    String correctResponse = "[alpha, gamma, beta]";
+    helperComparison (response, correctResponse);
+
+  } // test()
+
+  @Test
+  public void
+    test2 ()
+      throws Exception
+  {
+    ArrayBasedQueue<String> abq = new ArrayBasedQueue<String> (5);
+    abq.put ("SAM");
+    abq.put ("KATE");
+    abq.put ("BELLY");
+    abq.get ();
+    abq.get ();
+
+    String response = stringQueueOutput (abq);
+    String correctResponse = "[KATE]";
+    helperComparison (response, correctResponse);
+
+  } // test()
+
+  @Test
+  public void
+    test3 ()
+      throws Exception
+  {
+    ArrayBasedQueue<String> abq = new ArrayBasedQueue<String> (5);
+    abq.put ("alpha");
+    abq.put ("gamma");
+    abq.put ("beta");
+    abq.put (abq.get ());
+    abq.put (abq.get ());
+
+    String response = stringQueueOutput (abq);
+    String correctResponse = "[beta, alpha, gamma]";
+    helperComparison (response, correctResponse);
+
+  } // test()
+
+  /*
+   * test the cases for enqueue
+   */
+  @Test
+  public void testEnqueue()
+    throws Exception
+  {
+    ArrayBasedQueue<Integer> abq = new ArrayBasedQueue<Integer>(20);
+    for (int x = 0; x < 20; x++)
+      {
+        abq.enqueue(x);
+      } // for(x)
+    try
+      {
+        abq.enqueue(1);
+      } // try
+    catch (Exception e)
+      {
+        // success
+      }
+  } // testEnqueue
+
+  /**
+   * test the case for dequeue
+   */
+  @Test
+  public void testDequeue()
+    throws Exception
+  {
+    ArrayBasedQueue<Integer> abq = new ArrayBasedQueue<Integer>(50);
+    for (int x = 0; x < 50; x++)
+      {
+        abq.enqueue(x);
+        abq.dequeue();
+      } // for(x)
+    try
+      {
+        abq.dequeue();
+      } // try
+    catch (Exception e)
+      {
+        // success
+      } // try catch
+  } // testDequeue()
+
+ 
+
+}

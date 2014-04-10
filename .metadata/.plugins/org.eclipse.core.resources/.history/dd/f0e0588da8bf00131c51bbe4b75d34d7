@@ -1,0 +1,141 @@
+import java.util.Iterator;
+
+public class ArrayBasedQueue<T> implements Queue<T> {
+	// +--------+----------------------------------------------------------
+	// | Fields |
+	// +--------+
+
+	/**
+	 * The values stored in the queue.
+	 */
+	T[] values;
+
+	/**
+	 * The index of the front of the queue.
+	 */
+	int front;
+
+	/**
+	 * The number of elements in the queue.
+	 */
+	int size;
+
+	/**
+	 * The index of the back of the queue
+	 */
+	int back;
+
+	// +--------------+----------------------------------------------------
+	// | Constructors |
+	// +--------------+
+
+	/**
+	 * Create a new queue that holds up to capacity elements.
+	 */
+	@SuppressWarnings({ "unchecked" })
+	// Handle array casting
+	public ArrayBasedQueue(int capacity) throws Exception {
+		if (capacity <= 0) {
+			throw new Exception("Queues must have a positive capacity.");
+		} // if (capacity <= 0)
+		// Yay Java! It's not possible to say new T[capacity], so
+		// we use this hack.
+		this.values = (T[]) new Object[capacity];
+		this.front = 0;
+		this.size = 0;
+		this.back = -1;
+	} // ArayBasedQueue(int capacity)
+
+	// +---------------+---------------------------------------------------
+	// | Queue Methods |
+	// +---------------+
+
+	@Override
+	public void put(T val) throws Exception {
+		if (this.isFull()) {
+			throw new Exception("no more room!");
+		} // this.isFull()
+		// check if the element is not the last element of queue
+		if (this.back != this.values.length) {
+			this.values[this.back] = val;
+			this.back++;
+		} // if
+		else {
+			// Find out the next best place
+			int firstEmpty = getFirstEmpty();
+			this.values[firstEmpty] = val;
+			// The value has been put at lowest position in array possible.
+			this.back = firstEmpty + 1; // this is the new last element
+		} // else
+
+		++this.size;
+	}// put
+
+	@Override
+	public T get() throws Exception {
+		if (this.isEmpty()) {
+			throw new Exception("empty");
+		} // this.isEmpty()
+		// get and clear the element at the front of the queue
+		T result = this.values[this.front];
+		this.values[this.front] = null;
+		// Check if the front is at the end of the array.
+		if (this.front == (this.values.length - 1))
+			this.front = 0; // Wrap it around
+		else
+			this.front++;
+
+		// We're removing an element, so reduce the size
+		--this.size;
+		// finally, return to the element we get
+		return result;
+	}// get()
+
+	@Override
+	public T peek() throws Exception {
+		if (this.isEmpty()) {
+			throw new Exception("empty");
+		} // this.isEmpty()
+		return this.values[this.front];
+	}// peek()
+
+	@Override
+	public boolean isEmpty() {
+		return this.size <= 0;
+	}// isEmpty
+
+	@Override
+	public boolean isFull() {
+		return this.size >= this.values.length;
+	}// isFull()
+
+	@Override
+	public Iterator<T> iterator() {
+		return new ArrayBasedQueueIterator<T>(this);
+	}// Iterator
+
+	@Override
+	public void enqueue(T val) throws Exception {
+		this.put(val);
+	}// enqueue(T val)
+
+	@Override
+	public T dequeue() throws Exception {
+		return this.get();
+	}// dequeue()
+
+	// +----------------+--------------------------------------------------
+	// | Helper Methods |
+	// +----------------+
+
+	public int getFirstEmpty() {
+		for (int i = 0; i < this.values.length; i++) {
+			if (this.values[i] == null) {
+				// there is space here
+				return i;
+			} // if
+		} // for
+		return -1; // the array is full.
+	} // wrapNext()
+
+}

@@ -1,0 +1,167 @@
+package Problem1;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class ArrayBasedQueueTest
+{
+
+  public String
+    printFormat (String[] arrayIn)
+  {
+    String output = "[ ";
+    for (int i = 0; i < arrayIn.length; i++)
+      {
+        output += arrayIn[i] + ", ";
+      } // for
+
+    return output + " ]";
+  } // printFormat (String [])
+
+  /**
+   * Organize the format of output for String
+   * 
+   * @param Enqueue
+   * @return output, e.g. [val0, val1, val2]
+   * @throws Exception
+   */
+  public String
+    stringQueueOutput (ArrayBasedQueue<String> Enqueue)
+      throws Exception
+  {
+    // No iterator implemented, okay.
+    // Concatenate all strings within QueueIn
+    int queueSize = Enqueue.size;
+    String output = "[";
+    for (int i = 0; i < queueSize; i++)
+      {
+        output += Enqueue.get ();
+        if (i != queueSize - 1)
+          {
+            output += ", ";
+          } // if
+      } // for
+    return output += "]";
+  } // stringQueueOutput(ArrayBasedQueue)
+
+  /*
+   * helper to compare test given and expect
+   */
+  public void
+    helperComparison (String given, String correct)
+  {
+    if (given.compareTo (correct) == 0)
+      {
+        assertEquals (given, correct);
+      } // if
+    else
+      {
+        fail ("Expected: " + correct + " but received: " + given);
+      } // else
+  } // responseComparison (String, String)
+
+  @Test
+  public void
+    test ()
+      throws Exception
+  {
+    ArrayBasedQueue<String> abq = new ArrayBasedQueue<String> (5);
+    abq.enqueue ("alpha");
+    abq.put ("gamma");
+    abq.getFirstEmpty () ;
+
+    String given = stringQueueOutput (abq);
+    String expect = "[gamma]";
+    helperComparison (given, expect);
+
+  } // test()
+
+  /*
+   * test the cases for string  
+   */
+  @Test
+  public void
+    test2 ()
+      throws Exception
+  {
+    ArrayBasedQueue<String> abq = new ArrayBasedQueue<String> (5);
+    abq.put ("SAM");
+    abq.put ("KATE");
+    abq.put ("BELLY");
+    abq.get ();
+    abq.get ();
+
+    String given = stringQueueOutput (abq);
+    String expect = "[BELLY]";
+    helperComparison (given, expect);
+
+  } // test()
+  /*
+   * test the cases for string with puntuation  
+   */
+  @Test
+  public void
+    test3 ()
+      throws Exception
+  {
+    ArrayBasedQueue<String> strpunc = new ArrayBasedQueue<String> (5);
+   strpunc.put ("daf23##");
+    strpunc.put ("kjih--");
+    strpunc.put ("hu9-!");
+    strpunc.put (strpunc.get ());
+    strpunc.put (strpunc.get ());
+
+    String given = stringQueueOutput (strpunc);
+    String expect = "[hu9-!, daf23##, kjih--]";
+    helperComparison (given, expect);
+
+  } // test()
+
+  /*
+   * test the cases for integer enqueue 
+   */
+  @Test
+  public void testEnqueue()
+    throws Exception
+  {
+    ArrayBasedQueue<Integer> abq = new ArrayBasedQueue<Integer>(20);
+    for (int x = 0; x < 20; x++)
+      {
+        abq.enqueue(x);
+      } // for(x)
+    try
+      {
+        abq.enqueue(1);
+      } // try
+    catch (Exception e)
+      {
+        // success
+      }
+  } // testEnqueue
+
+  /**
+   * test the case for integer dequeue
+   */
+  @Test
+  public void testDequeue()
+    throws Exception
+  {
+    ArrayBasedQueue<Integer> abq = new ArrayBasedQueue<Integer>(50);
+    for (int x = 0; x < 50; x++)
+      {
+        abq.enqueue(x);
+        abq.dequeue();
+      } // for(x)
+    try
+      {
+        abq.dequeue();
+      } // try
+    catch (Exception e)
+      {
+        // success
+      } // try catch
+  } // testDequeue()
+
+ 
+
+}

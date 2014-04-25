@@ -1,0 +1,62 @@
+package taojava.util;
+
+import java.io.PrintWriter;
+import java.util.Comparator;
+import java.util.Iterator;
+
+
+public class BSTExptNew 
+{
+  // +--------+----------------------------------------------------------
+  // | Fields |
+  // +--------+
+
+  /**
+   * Output for our program.
+   */
+  static PrintWriter pen;
+
+  /**
+   * The current dictionary.
+   */
+  static BST<String, String> dict;
+
+  // +------+------------------------------------------------------------
+  // | Main |
+  // +------+
+
+  public static void
+    main (String[] args)
+  {
+    pen = new PrintWriter(System.out, true);
+    String[] values = new String[] { "monkey", "gibbon", "snake", "dingo",
+                                    "koala", "python", "viper", "baboon",
+                                    "frog", "hippo", "lemur", "orangutan",
+                                    "rabbit", "tiger", "wombat", "aardvark",
+                                    "chinchilla", "emu", "gnu" };
+    BST<Character, String> dict = new BST<Character, String> (
+                                                              new Comparator<Character> ()
+                                                                {
+                                                                  public int
+                                                                    compare (Character left,
+                                                                             Character right)
+                                                                  {
+                                                                    return left.compareTo (right);
+                                                                  } // compare(Character,
+                                                                    // Character)
+                                                                });
+    
+ 
+    for (String value : values)
+      {
+        dict.set (value.charAt (0), value);
+      } // for
+   
+  }
+
+
+  
+  
+}
+  
+  
